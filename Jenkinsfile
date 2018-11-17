@@ -2,8 +2,17 @@ pipeline {
   agent any
   stages {
     stage('Build') {
-      steps {
-        echo 'Building...'
+      parallel {
+        stage('Build') {
+          steps {
+            echo 'Building...'
+          }
+        }
+        stage('') {
+          steps {
+            echo 'building'
+          }
+        }
       }
     }
     stage('Test Firefox') {
@@ -23,11 +32,26 @@ pipeline {
             sh 'echo \'Testing Edge\''
           }
         }
+        stage('') {
+          steps {
+            sh 'echo \'testing\''
+          }
+        }
       }
     }
     stage('Deploy') {
-      steps {
-        echo 'Deploy'
+      parallel {
+        stage('Deploy') {
+          steps {
+            echo 'Deploy'
+          }
+        }
+        stage('') {
+          steps {
+            sh '''echo \'hello\'
+'''
+          }
+        }
       }
     }
   }
